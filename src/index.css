@@ -1,0 +1,136 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 13 17 23; /* minecraft-dark */
+    --foreground: 255 255 255;
+    
+    --card: 47 47 47;
+    --card-foreground: 255 255 255;
+    
+    --popover: 47 47 47;
+    --popover-foreground: 255 255 255;
+    
+    --primary: 255 176 0; /* minecraft-gold */
+    --primary-foreground: 0 0 0;
+    
+    --secondary: 139 69 19; /* minecraft-wood */
+    --secondary-foreground: 255 255 255;
+    
+    --muted: 127 127 127; /* minecraft-stone */
+    --muted-foreground: 255 255 255;
+    
+    --accent: 255 165 0; /* minecraft-torch */
+    --accent-foreground: 0 0 0;
+    
+    --destructive: 255 0 0; /* minecraft-redstone */
+    --destructive-foreground: 255 255 255;
+    
+    --border: 127 127 127;
+    --input: 47 47 47;
+    --ring: 255 176 0;
+    
+    --radius: 0rem; /* Sharp pixel edges */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-minecraft-dark text-foreground font-pixel;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .minecraft-block {
+    @apply bg-minecraft-stone border-4 border-gray-300 border-t-white border-l-white border-r-gray-600 border-b-gray-600;
+    background-image: 
+      linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%), 
+      linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%), 
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%), 
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+    background-size: 4px 4px;
+  }
+  
+  .minecraft-button {
+    @apply minecraft-block px-6 py-3 text-white font-pixel text-xs hover:bg-minecraft-gold hover:text-black transition-all duration-200 cursor-pointer;
+    text-transform: uppercase;
+  }
+  
+  .minecraft-button:hover {
+    @apply animate-pixel-glow;
+    transform: translateY(-2px);
+  }
+  
+  .minecraft-inventory-slot {
+    @apply bg-gray-800 border-2 border-gray-600 border-t-gray-400 border-l-gray-400 w-16 h-16 flex items-center justify-center text-2xl;
+  }
+  
+  .minecraft-text-glow {
+    text-shadow: 2px 2px 0px #000, 0 0 10px #ffa500, 0 0 20px #ffa500;
+  }
+  
+  .minecraft-leaf {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #7cb342;
+    image-rendering: pixelated;
+  }
+  
+  .minecraft-leaf:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #8bc34a 0%, #689f38 50%, #558b2f 100%);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+  
+  .skill-bar {
+    @apply bg-gray-800 border-2 border-gray-600 h-6 relative overflow-hidden;
+  }
+  
+  .skill-bar-fill {
+    @apply h-full bg-gradient-to-r from-minecraft-emerald to-minecraft-gold transition-all duration-1000;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.1) 2px,
+      rgba(255,255,255,0.1) 4px
+    );
+  }
+}
+
+@keyframes pixelate {
+  0% { 
+    transform: scale(1);
+    filter: blur(0px);
+  }
+  50% { 
+    transform: scale(1.05);
+    filter: blur(0.5px);
+  }
+  100% { 
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-pixelate {
+  animation: pixelate 0.3s ease-in-out;
+}
